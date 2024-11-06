@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => WeatherBloc(WeatherService())),
       ],
       child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         home: WeatherScreen(),
       ),
