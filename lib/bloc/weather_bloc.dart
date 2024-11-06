@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:weather/service/weather_service.dart';
 import 'weather_event.dart';
 import 'weather_state.dart';
@@ -31,7 +32,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       }
 
       if (permission == LocationPermission.deniedForever) {
-        emit(WeatherError("Location permissions are permanently denied."));
+        emit(WeatherError("Location permissions are permanently denied. Please enable them in settings."));
         return;
       }
 
@@ -44,9 +45,22 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         position.latitude,
         position.longitude,
       );
-      emit(WeatherLoaded(weather));
+
+      emit(WeatherLoaded(weather, locationName: await _fetchLocationName(position)));
     } catch (e) {
       emit(WeatherError("Could not fetch weather data: $e"));
     }
   }
+
+Future<String> _fetchLocationName(Position position) async {
+  try {
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude, position.longitude);
+    return placemarks.first.locality ?? "Unknown Location";
+  } catch (e) {
+    print("Error fetching location name: $e");
+    return "Location unavailable";
+  }
+}
+
 }
