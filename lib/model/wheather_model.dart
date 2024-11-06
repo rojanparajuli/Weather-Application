@@ -12,7 +12,7 @@ class WeatherModel {
   int? utcOffsetSeconds;
   String? timezone;
   String? timezoneAbbreviation;
-  int? elevation;
+  double? elevation;
   CurrentWeatherUnits? currentWeatherUnits;
   CurrentWeather? currentWeather;
   HourlyUnits? hourlyUnits;
@@ -33,9 +33,9 @@ class WeatherModel {
   });
 
   factory WeatherModel.fromJson(Map<String, dynamic> json) => WeatherModel(
-        latitude: json["latitude"].toDouble(),
-        longitude: json["longitude"].toDouble(),
-        generationtimeMs: json["generationtime_ms"].toDouble(),
+        latitude: json["latitude"],
+        longitude: json["longitude"],
+        generationtimeMs: json["generationtime_ms"],
         utcOffsetSeconds: json["utc_offset_seconds"],
         timezone: json["timezone"],
         timezoneAbbreviation: json["timezone_abbreviation"],
