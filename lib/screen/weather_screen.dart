@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:weather/bloc/weather_bloc.dart';
 import 'package:weather/bloc/weather_event.dart';
 import 'package:weather/bloc/weather_state.dart';
+import 'package:weather/components/greetings.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -43,7 +45,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 child: SizedBox(
                   height: 200,
                   width: 200,
-                  child: Lottie.asset('assets/loading.json'),
+                  child: Lottie.asset('assets/Animation - 1742210341196.json'),
                 ),
               );
             } else if (state is WeatherLoaded) {
@@ -56,7 +58,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
               return Scaffold(
                 appBar: AppBar(
-                  title: const Text('Weather App'),
+                  title: Text('${getGreeting()}, User',
+                      style: GoogleFonts.abel(fontSize: 20)),
                   backgroundColor: isDay ? Colors.white : Colors.black,
                   foregroundColor: isDay ? Colors.black : Colors.white,
                   centerTitle: true,
@@ -86,12 +89,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               color: Colors.white,
                             ),
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(Icons.location_on ),
-                                const SizedBox(width: 10,),
+                                const Icon(Icons.location_on, color: Colors.green),
+                                const SizedBox(
+                                  width: 10,
+                                ),
                                 Text(
                                   state.locationName,
-                                  style: const TextStyle(
+                                  style: GoogleFonts.abel(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
@@ -101,72 +107,82 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             ),
                           ),
                           const SizedBox(height: 30),
-                          const Text(
+                          Text(
                             'Weather Details',
-                            style: TextStyle(
+                            style: GoogleFonts.abel(
                               fontSize: 22,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           const Divider(),
-                          const Text(
+                          Text(
                             'Current Weather',
-                            style: TextStyle(
+                            style: GoogleFonts.abel(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                           const SizedBox(height: 8),
                           Text(
-                              'Temperature: ${weather?.temperature ?? 'N/A'}°C'),
+                              'Temperature: ${weather?.temperature ?? 'N/A'}°C',
+                              style: GoogleFonts.abel(fontSize: 16)),
+                          Text('Windspeed: ${weather?.windspeed ?? 'N/A'} km/h',
+                              style: GoogleFonts.abel(fontSize: 16)),
                           Text(
-                              'Windspeed: ${weather?.windspeed ?? 'N/A'} km/h'),
-                          Text(
-                              'Wind Direction: ${weather?.winddirection ?? 'N/A'}°'),
-                          Text('Is Day: ${isDay ? 'Yes' : 'No'}'),
-                          Text(
-                              'Weather Code: ${weather?.weathercode ?? 'N/A'}'),
+                              'Wind Direction: ${weather?.winddirection ?? 'N/A'}°',
+                              style: GoogleFonts.abel(fontSize: 16)),
+                          Text('Is Day: ${isDay ? 'Yes' : 'No'}',
+                              style: GoogleFonts.abel(fontSize: 16)),
+                          Text('Weather Code: ${weather?.weathercode ?? 'N/A'}',
+                              style: GoogleFonts.abel(fontSize: 16)),
                           const Divider(),
-                          // Display current weather units
                           if (state.weather.currentWeatherUnits != null) ...[
-                            const Text(
+                            Text(
                               'Current Weather Units',
-                              style: TextStyle(
+                              style: GoogleFonts.abel(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             const SizedBox(height: 8),
                             Text(
-                                'Temperature Unit: ${state.weather.currentWeatherUnits?.temperature ?? 'N/A'}'),
+                                'Temperature Unit: ${state.weather.currentWeatherUnits?.temperature ?? 'N/A'}',
+                                style: GoogleFonts.abel(fontSize: 16)),
                             Text(
-                                'Windspeed Unit: ${state.weather.currentWeatherUnits?.windspeed ?? 'N/A'}'),
+                                'Windspeed Unit: ${state.weather.currentWeatherUnits?.windspeed ?? 'N/A'}',
+                                style: GoogleFonts.abel(fontSize: 16)),
                             Text(
-                                'Wind Direction Unit: ${state.weather.currentWeatherUnits?.winddirection ?? 'N/A'}'),
+                                'Wind Direction Unit: ${state.weather.currentWeatherUnits?.winddirection ?? 'N/A'}',
+                                style: GoogleFonts.abel(fontSize: 16)),
                             Text(
-                                'Is Day Unit: ${state.weather.currentWeatherUnits?.isDay ?? 'N/A'}'),
+                                'Is Day Unit: ${state.weather.currentWeatherUnits?.isDay ?? 'N/A'}',
+                                style: GoogleFonts.abel(fontSize: 16)),
                             Text(
-                                'Weather Code Unit: ${state.weather.currentWeatherUnits?.weathercode ?? 'N/A'}'),
+                                'Weather Code Unit: ${state.weather.currentWeatherUnits?.weathercode ?? 'N/A'}',
+                                style: GoogleFonts.abel(fontSize: 16)),
                           ],
                           const Divider(),
-                          // Display hourly data units
                           if (state.weather.hourlyUnits != null) ...[
-                            const Text(
+                            Text(
                               'Hourly Data Units',
-                              style: TextStyle(
+                              style: GoogleFonts.abel(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             const SizedBox(height: 8),
                             Text(
-                                'Time Unit: ${state.weather.hourlyUnits?.time ?? 'N/A'}'),
+                                'Time Unit: ${state.weather.hourlyUnits?.time ?? 'N/A'}',
+                                style: GoogleFonts.abel(fontSize: 16)),
                             Text(
-                                'Temperature 2m Unit: ${state.weather.hourlyUnits?.temperature2M ?? 'N/A'}'),
+                                'Temperature 2m Unit: ${state.weather.hourlyUnits?.temperature2M ?? 'N/A'}',
+                                style: GoogleFonts.abel(fontSize: 16)),
                             Text(
-                                'Relative Humidity 2m Unit: ${state.weather.hourlyUnits?.relativehumidity2M ?? 'N/A'}'),
+                                'Relative Humidity 2m Unit: ${state.weather.hourlyUnits?.relativehumidity2M ?? 'N/A'}',
+                                style: GoogleFonts.abel(fontSize: 16)),
                             Text(
-                                'Windspeed 10m Unit: ${state.weather.hourlyUnits?.windspeed10M ?? 'N/A'}'),
+                                'Windspeed 10m Unit: ${state.weather.hourlyUnits?.windspeed10M ?? 'N/A'}',
+                                style: GoogleFonts.abel(fontSize: 16)),
                           ],
                         ],
                       ),
@@ -182,14 +198,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   children: [
                     Text(
                       state.message,
-                      style: const TextStyle(color: Colors.red, fontSize: 18),
+                      style: GoogleFonts.abel(color: Colors.red, fontSize: 18),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () => BlocProvider.of<WeatherBloc>(context)
                           .add(FetchWeather()),
-                      child: const Text('Retry'),
+                      child:
+                          Text('Retry', style: GoogleFonts.abel(fontSize: 18)),
                     ),
                   ],
                 ),
