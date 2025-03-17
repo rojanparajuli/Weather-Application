@@ -8,7 +8,7 @@ class WeatherService {
       '${Api.baseUrl}latitude=$latitude&longitude=$longitude&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m',
     );
 
-    try {
+    // try {
       final response = await http.get(url);
       print("Response: ${response.body}");
       print("Error: ${response.statusCode}");
@@ -20,9 +20,9 @@ class WeatherService {
         print("Error: ${response.statusCode}");
         throw Exception('Failed to load weather data');
       }
-    } catch (e) {
-      print("Exception caught: $e");
-      throw Exception('Network error');
-    }
+    // } catch (e) {
+    //   print("Exception caught: $e");
+    //   throw Exception('Network error');
+    // }
   }
 }
